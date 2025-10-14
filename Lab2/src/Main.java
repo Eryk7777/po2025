@@ -1,15 +1,19 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Random losuj = new Random(); // Tworzymy losowy generator liczb
+        ArrayList<Integer> liczby = new ArrayList<>(); // Lista na nasze liczby
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        while (liczby.size() < 6) { // Dopóki mamy mniej niż 6 liczb
+            int liczba = losuj.nextInt(49) + 1; // Losujemy liczbę od 1 do 49
+
+            if (!liczby.contains(liczba)) { // Jeśli jeszcze nie mamy tej liczby
+                liczby.add(liczba); // Dodajemy ją do listy
+            }
         }
+
+        System.out.println(liczby); // Wyświetlamy wylosowane liczby
     }
 }
