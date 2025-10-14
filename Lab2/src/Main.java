@@ -3,17 +3,33 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        Random losuj = new Random(); // Tworzymy losowy generator liczb
-        ArrayList<Integer> liczby = new ArrayList<>(); // Lista na nasze liczby
 
-        while (liczby.size() < 6) { // Dopóki mamy mniej niż 6 liczb
-            int liczba = losuj.nextInt(49) + 1; // Losujemy liczbę od 1 do 49
+        ArrayList<Integer> twojeTypy = new ArrayList<>();
 
-            if (!liczby.contains(liczba)) { // Jeśli jeszcze nie mamy tej liczby
-                liczby.add(liczba); // Dodajemy ją do listy
+        for (String arg : args) {
+            int liczba = Integer.parseInt(arg);
+            twojeTypy.add(liczba);
+        }
+
+        Random losuj = new Random();
+        ArrayList<Integer> wylosowane = new ArrayList<>();
+
+        while (wylosowane.size() < 6) {
+            int liczba = losuj.nextInt(49) + 1;
+            if (!wylosowane.contains(liczba)) {
+                wylosowane.add(liczba);
             }
         }
 
-        System.out.println(liczby); // Wyświetlamy wylosowane liczby
+        int trafienia = 0;
+        for (int typ : twojeTypy) {
+            if (wylosowane.contains(typ)) {
+                trafienia++;
+            }
+        }
+
+        System.out.println("Twoje typy: " + twojeTypy);
+        System.out.println("Wylosowane liczby: " + wylosowane);
+        System.out.println("Liczba trafien: " + trafienia);
     }
 }
