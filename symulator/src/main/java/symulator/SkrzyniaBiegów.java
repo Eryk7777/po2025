@@ -1,32 +1,36 @@
 package symulator;
 
-public class SkrzyniaBiegów extends Komponent {
+public class SkrzyniaBiegow extends Komponent {
     private int aktualnyBieg;
     private int iloscBiegow;
 
-    public SkrzyniaBiegów(String nazwa, double waga, double cena, int iloscBiegow, int  aktualnyBieg) {
-       super(nazwa, waga, cena);
-        this.aktualnyBieg = 0; // 0 = luz
+    public SkrzyniaBiegow(String producent, String model, int iloscBiegow) {
+        super(producent, model);
         this.iloscBiegow = iloscBiegow;
+        this.aktualnyBieg = 0; // 0 oznacza luz
     }
 
-    public void zwiększBieg() {
+    public void zwiekszBieg() {
         if (aktualnyBieg < iloscBiegow) {
             aktualnyBieg++;
-        } else {
-            System.out.println("Nie mozna zwiekszyc biegu.");
         }
     }
 
     public void zmniejszBieg() {
         if (aktualnyBieg > 0) {
             aktualnyBieg--;
-        } else {
-            System.out.println("Nie mozna zmniejszyc biegu.");
         }
     }
 
     public void zerujBieg() {
         aktualnyBieg = 0;
+    }
+
+    public int getAktualnyBieg() {
+        return aktualnyBieg;
+    }
+
+    public int getIloscBiegow() {
+        return iloscBiegow;
     }
 }
