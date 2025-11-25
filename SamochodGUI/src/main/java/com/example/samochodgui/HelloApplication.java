@@ -1,4 +1,4 @@
-package org.example.samochodgui;
+package com.example.samochodgui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
