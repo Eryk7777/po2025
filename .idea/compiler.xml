@@ -7,7 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="carGUI" />
-        <module name="symulator" />
+        <module name="Simulator" />
       </profile>
     </annotationProcessing>
   </component>
