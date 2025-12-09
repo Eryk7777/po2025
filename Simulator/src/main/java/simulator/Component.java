@@ -1,4 +1,4 @@
-package main.simulator.java;
+package main.java.simulator;
 
 public abstract class Component {
     private final String manufacturer;

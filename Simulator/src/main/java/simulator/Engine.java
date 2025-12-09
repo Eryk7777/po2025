@@ -1,4 +1,4 @@
-package main.simulator.java;
+package main.java.simulator;
 
 public class Engine extends Component {
     private volatile int revs;
