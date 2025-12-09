@@ -3,6 +3,6 @@ module com.eryk.cargui {
     requires javafx.fxml;
 
 
-    opens com.eryk.cargui to javafx.fxml;
-    exports com.eryk.cargui;
+    opens com.szymczak.cargui to javafx.fxml;
+    exports com.szymczak.cargui;
 }
