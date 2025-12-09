@@ -105,7 +105,9 @@ public class MainController implements Listener {
     }
 
     public void update() {
+
         Platform.runLater(this::refresh);
+
     }
 
     private void refresh() {
