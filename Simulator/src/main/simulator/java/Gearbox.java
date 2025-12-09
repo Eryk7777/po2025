@@ -1,4 +1,4 @@
-package java.simulator;
+package main.simulator.java;
 
 public class Gearbox extends Component {
     private volatile int gear;

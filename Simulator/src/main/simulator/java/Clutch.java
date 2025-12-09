@@ -1,4 +1,4 @@
-package java.simulator;
+package main.simulator.java;
 
 public class Clutch extends Component {
     private volatile boolean clutchState;

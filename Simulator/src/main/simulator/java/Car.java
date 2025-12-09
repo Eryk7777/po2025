@@ -1,4 +1,4 @@
-package java.simulator;
+package main.simulator.java;
 
 import com.eryk.interfaces.Listener;
 

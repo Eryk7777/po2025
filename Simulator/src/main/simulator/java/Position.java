@@ -1,4 +1,4 @@
-package java.simulator;
+package main.simulator.java;
 
 public class Position {
     private double x;
