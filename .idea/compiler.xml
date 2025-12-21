@@ -6,9 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="carGUI" />
-        <module name="Simulator" />
+        <module name="SamochodSymulator" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="CarGUI" target="21" />
+      <module name="carGUI" target="25" />
+      <module name="Simulator" target="25" />
+    </bytecodeTargetLevel>
   </component>
 </project>
