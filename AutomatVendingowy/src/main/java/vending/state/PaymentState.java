@@ -1,7 +1,6 @@
 package vending.state;
 
-import vending.model.Product;
-import vending.model.VendingMachine;
+import vending.model.*;
 
 public class PaymentState implements VendingState {
     private final VendingMachine machine;
