@@ -1,9 +1,7 @@
-package vending.state;
-
 import vending.model.VendingMachine;
 
 public class IdleState implements VendingState {
-    private VendingMachine machine;
+    private final VendingMachine machine;
 
     public IdleState(VendingMachine machine) {
         this.machine = machine;
@@ -11,20 +9,14 @@ public class IdleState implements VendingState {
 
     @Override
     public void insertMoney(double amount) {
-        System.out.println("Wrzucono: " + amount);
-        machine.addBalance(amount);
-        // Zmiana stanu na PaymentState (trzeba go stworzyć)
-        // machine.setState(machine.getPaymentState());
+        machine.setBalance(machine.getBalance() + amount);
+        System.out.println("Wrzucono: " + amount + " zł. Suma: " + machine.getBalance() + " zł.");
+        machine.setState(new PaymentState(machine));
     }
 
     @Override
     public void selectProduct(int id) {
-        System.out.println("Najpierw wrzuć monety!");
-    }
-
-    @Override
-    public void dispenseProduct() {
-        System.out.println("Nic nie wybrano.");
+        System.out.println("Błąd: Najpierw wrzuć pieniądze!");
     }
 
     @Override
