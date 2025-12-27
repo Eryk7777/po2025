@@ -4,9 +4,9 @@ public class Dispenser {
     public synchronized void dispense(String productName) {
         new Thread(() -> {
             try {
-                System.out.println("[WĄTEK] Mechanizm uruchomiony...");
+                System.out.println("Mechanizm uruchomiony...");
                 Thread.sleep(2000);
-                System.out.println("[WĄTEK] Wydano: " + productName);
+                System.out.println("Wydano: " + productName);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
