@@ -1,12 +1,11 @@
 package vending.model;
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 public class InventoryManager implements Serializable {
-    private Map<Integer, Product> products = new HashMap<>();
-    private Map<Integer, Integer> quantities = new HashMap<>();
+    private final Map<Integer, Product> products = new HashMap<>();
+    private final Map<Integer, Integer> quantities = new HashMap<>();
 
     public void addProduct(Product p, int qty) {
         products.put(p.getId(), p);
@@ -25,5 +24,9 @@ public class InventoryManager implements Serializable {
 
     public Product getProduct(int id) {
         return products.get(id);
+    }
+
+    public Map<Integer, Product> getAllProducts() {
+        return products;
     }
 }

@@ -17,9 +17,9 @@ public class PaymentState implements VendingState {
 
     @Override
     public void selectProduct(int id) {
-        Product p = machine.getInventory().get(id);
+        Product p = machine.getInventory().getProduct(id);
         if (p == null) {
-            System.out.println("Produkt o tym ID nie istnieje.");
+            System.out.println("Produkt z takim ID nie istnieje.");
             return;
         }
 
@@ -33,7 +33,7 @@ public class PaymentState implements VendingState {
             // Tutaj można dodać wątek wydawania produktu (Krok 5)
             machine.setState(new IdleState(machine));
         } else {
-            System.out.println("Za mało środków! Brakuje: " + (p.getPrice() - machine.getBalance()) + " zł.");
+            System.out.println("Za mało pieniążków! Brakuje: " + (p.getPrice() - machine.getBalance()) + " zł.");
         }
     }
 
