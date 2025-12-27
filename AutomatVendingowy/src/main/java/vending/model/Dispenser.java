@@ -1,14 +1,15 @@
 package vending.model;
 
 public class Dispenser {
-    public synchronized void dispense(String productName) {
+    // Synchronized zapobiega próbie wydania dwóch produktów jednocześnie przez dwa wątki
+    public synchronized void releaseProduct(String productName) {
         new Thread(() -> {
             try {
-                System.out.println("Mechanizm uruchomiony...");
-                Thread.sleep(2000);
-                System.out.println("Wydano: " + productName);
+                System.out.println("Wydawanie: " + productName);
+                Thread.sleep(3000); // Symulacja 3 sekund pracy silnika
+                System.out.println("Odbierz: " + productName);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.err.println("Błąd!");
             }
         }).start();
     }
