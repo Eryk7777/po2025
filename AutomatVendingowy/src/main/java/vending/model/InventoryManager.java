@@ -1,20 +1,21 @@
 package vending.model;
-
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InventoryManager {
-    // Mapa: Produkt -> Ilość sztuk
-    private Map<Product, Integer> products = new HashMap<>();
+public class InventoryManager implements Serializable {
+    private Map<Integer, Integer> stock = new HashMap<>(); // ID -> Ilość
+    private Map<Integer, Product> products = new HashMap<>(); // ID -> Obiekt
 
-    public void addProduct(Product product, int quantity) {
-        products.put(product, products.getOrDefault(product, 0) + quantity);
+    public void addProduct(Product p, int quantity) {
+        products.put(p.getId(), p);
+        stock.put(p.getId(), quantity);
     }
 
-    public void removeOne(Product product) {
-        if (products.containsKey(product) && products.get(product) > 0) {
-            products.put(product, products.get(product) - 1);
-        }
+    public Product getProduct(int id) { return products.get(id); }
+    public boolean isAvailable(int id) { return stock.getOrDefault(id, 0) > 0; }
+
+    public void decrementStock(int id) {
+        stock.put(id, stock.get(id) - 1);
     }
-    // Gettery i metody pomocnicze...
 }

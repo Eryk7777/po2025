@@ -1,35 +1,28 @@
 package vending.model;
-
-import vending.state.VendingState;
-import vending.state.IdleState;
+import vending.state.*;
 
 public class VendingMachine {
     private VendingState currentState;
-    private double currentBalance = 0.0;
-    private InventoryManager inventory =  new InventoryManager();
-    private CashRegister cashRegister = new CashRegister();
-    private Dispenser dispenser = new Dispenser();
+    private double balance;
+    private InventoryManager inventory;
+    private Dispenser dispenser;
 
     public VendingMachine() {
-        // Początkowy stan
-        this.currentState = new IdleState(this);
+        this.inventory = new InventoryManager();
+        this.dispenser = new Dispenser();
+        this.balance = 0;
+        // Początkowy stan (musisz go zaimplementować, np. IdleState)
     }
 
-    // Metody delegujące do stanu
-    public void insertMoney(double amount) {
-        currentState.insertMoney(amount);
-    }
-
-    public void addBalance(double amount) { this.currentBalance += amount; }
-    public double getCurrentBalance() { return currentBalance; }
-    public void resetBalance() { this.currentBalance = 0; }
-
-    public void setInternalState(VendingState newState) {
-        this.currentState = newState;
-    }
-
+    // Gettery i Settery
+    public void setState(VendingState state) { this.currentState = state; }
+    public void addBalance(double amount) { this.balance += amount; }
+    public double getBalance() { return balance; }
+    public void setBalance(double balance) { this.balance = balance; }
     public InventoryManager getInventory() { return inventory; }
-    public CashRegister getCashRegister() { return cashRegister; }
     public Dispenser getDispenser() { return dispenser; }
-}
 
+    // Metody delegujące
+    public void pressButton(int id) { currentState.selectProduct(id); }
+    public void insertCoin(double amount) { currentState.insertMoney(amount); }
+}
