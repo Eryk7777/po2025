@@ -1,28 +1,35 @@
 package vending.model;
 
 import vending.state.VendingState;
+import vending.state.IdleState;
 
 public class VendingMachine {
     private VendingState currentState;
-    private double currentBalance;
-    private InventoryManager inventory;
-
-    // Stany automatu
-    private VendingState idleState;
-    private VendingState processingPaymentState;
+    private double currentBalance = 0.0;
+    private InventoryManager inventory =  new InventoryManager();
+    private CashRegister cashRegister = new CashRegister();
+    private Dispenser dispenser = new Dispenser();
 
     public VendingMachine() {
-        this.inventory = new InventoryManager();
-        // Tutaj w przyszłości zainicjalizujesz konkretne stany
+        // Początkowy stan
+        this.currentState = new IdleState(this);
     }
 
-    public void setState(VendingState state) {
-        this.currentState = state;
+    // Metody delegujące do stanu
+    public void insertMoney(double amount) {
+        currentState.insertMoney(amount);
     }
 
-    // Delegowanie metod do aktualnego stanu
-    public void pressButton(int id) { currentState.selectProduct(id); }
-    public void insertCoin(double amount) { currentState.insertMoney(amount); }
+    public void addBalance(double amount) { this.currentBalance += amount; }
+    public double getCurrentBalance() { return currentBalance; }
+    public void resetBalance() { this.currentBalance = 0; }
 
-    // Gettery i settery dla balansu...
+    public void setInternalState(VendingState newState) {
+        this.currentState = newState;
+    }
+
+    public InventoryManager getInventory() { return inventory; }
+    public CashRegister getCashRegister() { return cashRegister; }
+    public Dispenser getDispenser() { return dispenser; }
 }
+
