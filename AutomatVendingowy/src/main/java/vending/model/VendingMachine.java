@@ -1,28 +1,29 @@
 package vending.model;
 import vending.state.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class VendingMachine {
     private VendingState currentState;
-    private double balance;
-    private InventoryManager inventory;
-    private Dispenser dispenser;
+    private double balance = 0.0;
+    private final Map<Integer, Product> inventory = new HashMap<>();
 
     public VendingMachine() {
-        this.inventory = new InventoryManager();
-        this.dispenser = new Dispenser();
-        this.balance = 0;
-        // Początkowy stan (musisz go zaimplementować, np. IdleState)
+        this.currentState = new IdleState(this);
+    }
+
+    public void addProduct(Product p) {
+        inventory.put(p.getId(), p);
     }
 
     // Gettery i Settery
     public void setState(VendingState state) { this.currentState = state; }
-    public void addBalance(double amount) { this.balance += amount; }
     public double getBalance() { return balance; }
     public void setBalance(double balance) { this.balance = balance; }
-    public InventoryManager getInventory() { return inventory; }
-    public Dispenser getDispenser() { return dispenser; }
+    public Map<Integer, Product> getInventory() { return inventory; }
 
-    // Metody delegujące
-    public void pressButton(int id) { currentState.selectProduct(id); }
-    public void insertCoin(double amount) { currentState.insertMoney(amount); }
+    // Delegacja do stanu
+    public void insertMoney(double amount) { currentState.insertMoney(amount); }
+    public void selectProduct(int id) { currentState.selectProduct(id); }
+    public void refund() { currentState.refund(); }
 }
