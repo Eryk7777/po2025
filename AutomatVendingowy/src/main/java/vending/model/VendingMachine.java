@@ -1,7 +1,5 @@
 package vending.model;
 import vending.state.*;
-import java.util.HashMap;
-import java.util.Map;
 
 public class VendingMachine {
     private VendingState currentState;
@@ -18,14 +16,11 @@ public class VendingMachine {
     public void selectProduct(int id) { currentState.selectProduct(id); }
     public void refund() { currentState.refund(); }
 
-    public void setInventory(InventoryManager inventory) {
-        this.inventory = inventory;
-    }
     public void setState(VendingState state) { this.currentState = state; }
-    public double getBalance() { return balance; }
-    public void setBalance(double balance) { this.balance = balance; }
+    public void setInventory(InventoryManager inventory) { this.inventory = inventory; }
     public InventoryManager getInventory() { return inventory; }
+    public double getBalance() { return balance; }
+    public void setBalance(double b) { this.balance = Math.round(b * 100.0) / 100.0; }
     public CashRegister getCashRegister() { return cashRegister; }
     public Dispenser getDispenser() { return dispenser; }
-
 }
