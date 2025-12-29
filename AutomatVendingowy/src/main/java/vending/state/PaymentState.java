@@ -1,5 +1,5 @@
-package vending.state;
-
+PaymentState:
+        package vending.state;
 import vending.model.*;
 
 public class PaymentState implements VendingState {
@@ -12,35 +12,49 @@ public class PaymentState implements VendingState {
     @Override
     public void insertMoney(double amount) {
         machine.setBalance(machine.getBalance() + amount);
-        System.out.println("Dodano: " + amount + " zł. Suma: " + machine.getBalance() + " zł.");
+        System.out.println("[STATUS] Dodano: " + amount + " zł. Saldo: " + machine.getBalance() + " zł");
     }
 
     @Override
     public void selectProduct(int id) {
-        Product p = machine.getInventory().getProduct(id);
+        InventoryManager inv = machine.getInventory();
+        Product p = inv.getProduct(id);
+
         if (p == null) {
-            System.out.println("Produkt z takim ID nie istnieje.");
+            System.out.println("[BŁĄD] Nie ma produktu o takim ID.");
+            return;
+        }
+
+        if (!inv.hasItem(id)) {
+            System.out.println("[BŁĄD] Produkt " + p.getName() + " wyprzedany!");
             return;
         }
 
         if (machine.getBalance() >= p.getPrice()) {
-            System.out.println("Kupiono: " + p.getName());
             double change = machine.getBalance() - p.getPrice();
-            if (change > 0) {
-                System.out.println("Wydaję resztę: " + Math.round(change * 100.0) / 100.0 + " zł.");
-            }
-            machine.setBalance(0);
-            // Tutaj można dodać wątek wydawania produktu (Krok 5)
+
+            // Logika biznesowa: zmniejszenie stanu
+            inv.decrement(id);
+
+            // Wydanie produktu przez wątek
+            machine.getDispenser().releaseProduct(p.getName());
+
+            // Wydanie reszty
+            machine.getCashRegister().processChange(change);
+
+            // Reset maszyny
+            machine.setBalance(0.0);
             machine.setState(new IdleState(machine));
         } else {
-            System.out.println("Za mało pieniążków! Brakuje: " + (p.getPrice() - machine.getBalance()) + " zł.");
+            System.out.printf("[INFO] Brakuje %.2f zł na %s\n", (p.getPrice() - machine.getBalance()), p.getName());
         }
     }
 
     @Override
     public void refund() {
-        System.out.println("Zwracam: " + machine.getBalance() + " zł.");
-        machine.setBalance(0);
+        System.out.println("[STATUS] Zwrot środków: " + machine.getBalance() + " zł");
+        machine.getCashRegister().processChange(machine.getBalance());
+        machine.setBalance(0.0);
         machine.setState(new IdleState(machine));
     }
-}
+} 

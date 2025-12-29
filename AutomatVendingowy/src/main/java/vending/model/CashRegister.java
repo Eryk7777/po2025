@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class CashRegister implements Serializable {
-    private Map<Double, Integer> coins = new TreeMap<>(Collections.reverseOrder());
+    private final Map<Double, Integer> coins = new TreeMap<>(Collections.reverseOrder());
 
     public CashRegister() {
         coins.put(5.0, 10);

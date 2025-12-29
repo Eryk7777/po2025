@@ -1,15 +1,19 @@
 package vending.model;
 
 public class Dispenser {
-    public synchronized void releaseProduct(String productName) {
-        new Thread(() -> {
-            try {
-                System.out.println("[MECHANIZM] Praca... (wątek start)");
-                Thread.sleep(2000);
-                System.out.println("[MECHANIZM] Produkt " + productName + " został wydany.");
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        }).start();
+    public void releaseProduct(String productName) {
+        // Synchronized zapobiega konfliktom przy wielowątkowości
+        synchronized (this) {
+            Thread t = new Thread(() -> {
+                try {
+                    System.out.println("\n[MECHANIZM] Rozpoczęto wydawanie: " + productName);
+                    Thread.sleep(2000); // Symulacja pracy
+                    System.out.println("[MECHANIZM] Produkt " + productName + " wypadł do podajnika.");
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            });
+            t.start();
+        }
     }
 }

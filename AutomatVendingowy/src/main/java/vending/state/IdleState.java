@@ -1,5 +1,6 @@
-package  vending.state;
+IdleState:
 
+        package vending.state;
 import vending.model.VendingMachine;
 
 public class IdleState implements VendingState {
@@ -12,17 +13,17 @@ public class IdleState implements VendingState {
     @Override
     public void insertMoney(double amount) {
         machine.setBalance(machine.getBalance() + amount);
-        System.out.println("Wrzucono: " + amount + " zł. Suma: " + machine.getBalance() + " zł.");
+        System.out.println("[STATUS] Wrzucono: " + amount + " zł. Saldo: " + machine.getBalance() + " zł");
         machine.setState(new PaymentState(machine));
     }
 
     @Override
     public void selectProduct(int id) {
-        System.out.println("Błąd: Najpierw wrzuć pieniądze!");
+        System.out.println("[STATUS] Wrzuć pieniądze przed wyborem produktu.");
     }
 
     @Override
     public void refund() {
-        System.out.println("Brak środków do zwrotu.");
+        System.out.println("[STATUS] Brak pieniędzy do zwrotu.");
     }
 }

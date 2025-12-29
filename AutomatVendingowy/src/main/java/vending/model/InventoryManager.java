@@ -1,4 +1,6 @@
-package vending.model;
+InventoryManager:
+
+        package vending.model;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +12,13 @@ public class InventoryManager implements Serializable {
     public void addProduct(Product p, int qty) {
         products.put(p.getId(), p);
         quantities.put(p.getId(), qty);
+    }
+
+    // NOWA METODA: Uzupełnianie wszystkich produktów do 5 sztuk
+    public void restockAll() {
+        for (Integer id : products.keySet()) {
+            quantities.put(id, 5);
+        }
     }
 
     public boolean hasItem(int id) {
@@ -28,5 +37,9 @@ public class InventoryManager implements Serializable {
 
     public Map<Integer, Product> getAllProducts() {
         return products;
+    }
+
+    public int getQuantity(int id) {
+        return quantities.getOrDefault(id, 0);
     }
 }
