@@ -1,13 +1,11 @@
-PersistenceManager:
-
-        package vending.model;
+package vending.model;
 
 import java.io.*;
 
 public class PersistenceManager {
     private static final String FILE_NAME = "vending_storage.dat";
 
-    /
+    /**
 
     Zapisuje obiekt InventoryManager do pliku binarnego.*/
     public static void save(InventoryManager inventory) {
@@ -16,7 +14,7 @@ public class PersistenceManager {
             System.out.println("[SYSTEM] Stan magazynu został pomyślnie zapisany do pliku.");} catch (IOException e) {
             System.err.println("[BŁĄD ZAPISU] Nie udało się zapisać stanu: " + e.getMessage());}}
 
-    /
+    /**
 
     Wczytuje obiekt InventoryManager z pliku.
     @return Zwraca wczytany obiekt lub null, jeśli plik nie istnieje.*/

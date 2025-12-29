@@ -1,6 +1,4 @@
-IdleState:
-
-        package vending.state;
+package vending.state;
 import vending.model.VendingMachine;
 
 public class IdleState implements VendingState {

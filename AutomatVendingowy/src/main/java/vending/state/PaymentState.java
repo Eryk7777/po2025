@@ -1,5 +1,4 @@
-PaymentState:
-        package vending.state;
+package vending.state;
 import vending.model.*;
 
 public class PaymentState implements VendingState {
@@ -57,4 +56,4 @@ public class PaymentState implements VendingState {
         machine.setBalance(0.0);
         machine.setState(new IdleState(machine));
     }
-} 
+}
