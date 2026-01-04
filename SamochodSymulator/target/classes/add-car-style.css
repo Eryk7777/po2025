@@ -1,0 +1,82 @@
+/* add-car-style.css - Classic Clean Layout */
+
+.root {
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-font-size: 13px;
+}
+
+/* LEWY PANEL (SIDEBAR) */
+.sidebar {
+    -fx-background-color: #f0f0f0; /* Jasnoszary */
+    -fx-border-color: #dcdcdc;
+    -fx-border-width: 0 1 0 0; /* Linia oddzielająca z prawej */
+}
+
+/* NAGŁÓWKI */
+.header-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-padding: 0 0 15 0;
+}
+
+.sub-header {
+    -fx-font-weight: bold;
+    -fx-text-fill: #555555;
+    -fx-padding: 10 0 5 0;
+}
+
+/* POLA TEKSTOWE */
+.text-field {
+    -fx-background-radius: 3;
+    -fx-border-radius: 3;
+    -fx-background-color: white;
+    -fx-border-color: #bbbbbb;
+}
+.text-field:focused {
+    -fx-border-color: #4a90e2; /* Niebieska ramka przy pisaniu */
+    -fx-background-color: white;
+}
+
+/* PRZYCISKI */
+.button {
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+    -fx-padding: 8 15;
+}
+
+.primary-button {
+    -fx-background-color: #4a90e2; /* Niebieski standardowy */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.primary-button:hover {
+    -fx-background-color: #357abd;
+}
+
+.secondary-button {
+    -fx-background-color: #e0e0e0;
+    -fx-text-fill: #333333;
+    -fx-border-color: #bbbbbb;
+    -fx-border-radius: 4;
+}
+.secondary-button:hover {
+    -fx-background-color: #d0d0d0;
+}
+
+/* ROZWIJANE MENU (ACCORDION / TITLED PANE) */
+.accordion {
+    -fx-background-color: transparent;
+}
+.titled-pane {
+    -fx-text-fill: #333333;
+}
+.titled-pane > .title {
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 0 1 0;
+}
+.titled-pane > .content {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+}
