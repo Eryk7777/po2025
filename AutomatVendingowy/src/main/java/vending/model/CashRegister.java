@@ -20,7 +20,7 @@ public class CashRegister implements Serializable {
         double remaining = Math.round(amount * 100.0) / 100.0;
         if (remaining <= 0) return;
 
-        System.out.println("[KASA] Wydawanie reszty: " + remaining + " zł");
+        System.out.println("Wydawanie reszty: " + remaining + " zł");
         for (double coin : coins.keySet()) {
             while (remaining >= coin && coins.get(coin) > 0) {
                 remaining = Math.round((remaining - coin) * 100.0) / 100.0;

@@ -11,7 +11,7 @@ public class PaymentState implements VendingState {
     @Override
     public void insertMoney(double amount) {
         machine.setBalance(machine.getBalance() + amount);
-        System.out.println("[STATUS] Dodano: " + amount + " zł. Saldo: " + machine.getBalance() + " zł");
+        System.out.println("Dodano: " + amount + " zł. Saldo: " + machine.getBalance() + " zł");
     }
 
     @Override
@@ -20,12 +20,12 @@ public class PaymentState implements VendingState {
         Product p = inv.getProduct(id);
 
         if (p == null) {
-            System.out.println("[BŁĄD] Nie ma produktu o takim ID.");
+            System.out.println("Nie ma produktu o takim ID.");
             return;
         }
 
         if (!inv.hasItem(id)) {
-            System.out.println("[BŁĄD] Produkt " + p.getName() + " wyprzedany!");
+            System.out.println("Produkt " + p.getName() + " wyprzedany!");
             return;
         }
 
@@ -45,13 +45,13 @@ public class PaymentState implements VendingState {
             machine.setBalance(0.0);
             machine.setState(new IdleState(machine));
         } else {
-            System.out.printf("[INFO] Brakuje %.2f zł na %s\n", (p.getPrice() - machine.getBalance()), p.getName());
+            System.out.printf("Brakuje %.2f zł na %s\n", (p.getPrice() - machine.getBalance()), p.getName());
         }
     }
 
     @Override
     public void refund() {
-        System.out.println("[STATUS] Zwrot środków: " + machine.getBalance() + " zł");
+        System.out.println("Zwrot środków: " + machine.getBalance() + " zł");
         machine.getCashRegister().processChange(machine.getBalance());
         machine.setBalance(0.0);
         machine.setState(new IdleState(machine));

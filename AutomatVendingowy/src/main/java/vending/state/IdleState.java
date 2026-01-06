@@ -11,17 +11,17 @@ public class IdleState implements VendingState {
     @Override
     public void insertMoney(double amount) {
         machine.setBalance(machine.getBalance() + amount);
-        System.out.println("[STATUS] Wrzucono: " + amount + " zł. Saldo: " + machine.getBalance() + " zł");
+        System.out.println("Wrzucono: " + amount + " zł. Saldo: " + machine.getBalance() + " zł");
         machine.setState(new PaymentState(machine));
     }
 
     @Override
     public void selectProduct(int id) {
-        System.out.println("[STATUS] Wrzuć pieniądze przed wyborem produktu.");
+        System.out.println("Wrzuć pieniądze przed wyborem produktu.");
     }
 
     @Override
     public void refund() {
-        System.out.println("[STATUS] Brak pieniędzy do zwrotu.");
+        System.out.println("Brak pieniędzy do zwrotu.");
     }
 }

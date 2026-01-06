@@ -11,8 +11,8 @@ public class PersistenceManager {
     public static void save(InventoryManager inventory) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
             oos.writeObject(inventory);
-            System.out.println("[SYSTEM] Stan magazynu został pomyślnie zapisany do pliku.");} catch (IOException e) {
-            System.err.println("[BŁĄD ZAPISU] Nie udało się zapisać stanu: " + e.getMessage());}}
+            System.out.println("Stan magazynu został pomyślnie zapisany do pliku.");} catch (IOException e) {
+            System.err.println("Nie udało się zapisać stanu: " + e.getMessage());}}
 
     /**
 
@@ -21,7 +21,7 @@ public class PersistenceManager {
     public static InventoryManager load() {
         File file = new File(FILE_NAME);
         if (!file.exists()) {
-            System.out.println("[SYSTEM] Brak pliku zapisu. Inicjalizacja domyślna.");
+            System.out.println("Brak pliku zapisu. Inicjalizacja domyślna.");
             return null;}
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
@@ -30,7 +30,7 @@ public class PersistenceManager {
                 return (InventoryManager) loaded;
             }
         } catch (IOException | ClassNotFoundException e) {
-            System.err.println("[BŁĄD ODCZYTU] Plik uszkodzony lub niekompatybilny: " + e.getMessage());
+            System.err.println("Plik uszkodzony lub niekompatybilny: " + e.getMessage());
         }
         return null;
     }

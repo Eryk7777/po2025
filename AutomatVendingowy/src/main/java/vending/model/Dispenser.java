@@ -6,9 +6,9 @@ public class Dispenser {
         synchronized (this) {
             Thread t = new Thread(() -> {
                 try {
-                    System.out.println("\n[MECHANIZM] Rozpoczęto wydawanie: " + productName);
+                    System.out.println("\nRozpoczęto wydawanie: " + productName);
                     Thread.sleep(2000); // Symulacja pracy
-                    System.out.println("[MECHANIZM] Produkt " + productName + " wypadł do podajnika.");
+                    System.out.println("Produkt " + productName + " wypadł do podajnika.");
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
