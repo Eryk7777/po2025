@@ -11,7 +11,7 @@ public class Main {
         InventoryManager loaded = PersistenceManager.load();
         if (loaded != null) {
             machine.setInventory(loaded);
-            System.out.println("[SYSTEM] Stan wczytany z pliku.");
+            System.out.println("Stan wczytany z pliku.");
         } else {
             initDefaultInventory(machine);
         }
@@ -37,7 +37,7 @@ public class Main {
                     if (scanner.hasNextInt()) {
                         machine.selectProduct(scanner.nextInt());
                     } else {
-                        System.out.println("[BŁĄD] ID musi być liczbą!");
+                        System.out.println("ID musi być liczbą!");
                         scanner.next();
                     }
                 }
@@ -46,15 +46,15 @@ public class Main {
                 case "R" -> {
                     // Wywołanie uzupełniania zapasów
                     machine.getInventory().restockAll();
-                    System.out.println("[SERWIS] Wszystkie produkty zostały uzupełnione do 5 sztuk.");
+                    System.out.println("Wszystkie produkty zostały uzupełnione do 5 sztuk.");
                     printProductList(machine);
                 }
                 case "0" -> {
                     PersistenceManager.save(machine.getInventory());
-                    System.out.println("[SYSTEM] Zamykanie...");
+                    System.out.println("Zamykanie...");
                     System.exit(0);
                 }
-                default -> System.out.println("[BŁĄD] Nieznana opcja.");
+                default -> System.out.println("Nieznana opcja.");
             }
         }
     }
