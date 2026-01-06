@@ -21,8 +21,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("\n-------------------------------------------");
+            System.out.println("\n------------------------");
             System.out.println("AKTUALNE SALDO: " + machine.getBalance() + " zł");
+            System.out.println("------------------------");
             System.out.println("Opcje: [1-3] Wrzuć monetę (1zł/2zł/5zł) | [4] Kup | [5] Zwrot | [L] Lista | [R] Uzupełnij (Serwis) | [0] Wyjdź");
             System.out.print("Wybór: ");
 
@@ -44,10 +45,17 @@ public class Main {
                 case "5" -> machine.refund();
                 case "L" -> printProductList(machine);
                 case "R" -> {
-                    // Wywołanie uzupełniania zapasów
-                    machine.getInventory().restockAll();
-                    System.out.println("Wszystkie produkty zostały uzupełnione do 5 sztuk.");
-                    printProductList(machine);
+                    // Autoryzacja kodem admina
+                    System.out.print("Podaj kod ADMINA: ");
+                    String code = scanner.next();
+
+                    if (code.equals("1453")) {
+                        machine.getInventory().restockAll();
+                        System.out.println("Autoryzacja przebiegła pomyślnie. Wszystkie produkty zostały uzupełnione do 5 sztuk.");
+                        printProductList(machine);
+                    } else {
+                        System.out.println("Błędny kod. Brak uprawnień do uzupełniania zapasów.");
+                    }
                 }
                 case "0" -> {
                     PersistenceManager.save(machine.getInventory());
@@ -60,13 +68,13 @@ public class Main {
     }
 
     private static void printProductList(VendingMachine machine) {
-        System.out.println("\n============ DOSTĘPNE PRODUKTY ============");
+        System.out.println("\n=============== DOSTĘPNE PRODUKTY ================");
         machine.getInventory().getAllProducts().forEach((id, p) -> {
             int qty = machine.getInventory().getQuantity(id);
             String status = (qty > 0) ? qty + " szt." : "BRAK";
             System.out.printf("[%d] %-15s | Cena: %.2f zł | Stan: %s\n", id, p.getName(), p.getPrice(), status);
         });
-        System.out.println("===========================================");
+        System.out.println("==================================================");
     }
 
     private static void initDefaultInventory(VendingMachine machine) {
