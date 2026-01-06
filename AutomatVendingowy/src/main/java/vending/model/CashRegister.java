@@ -1,10 +1,12 @@
 package vending.model;
+
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class CashRegister implements Serializable {
+    private static final long serialVersionUID = 1L;
     private final Map<Double, Integer> coins = new TreeMap<>(Collections.reverseOrder());
 
     public CashRegister() {
@@ -16,6 +18,30 @@ public class CashRegister implements Serializable {
         coins.put(0.1, 10);
     }
 
+    /**
+
+    Sprawdza, czy automat posiada odpowiednie monety, aby wydac konkretna kwote reszty.
+    Nie zmienia stanu faktycznego monet w kasie.
+     */
+    public boolean canGiveChange(double amount) {
+        double remaining = Math.round(amount * 100.0) / 100.0;
+        if (remaining <= 0) return true;
+
+        // Symulacja na kopii mapy monet
+        Map<Double, Integer> tempCoins = new TreeMap<>(coins);
+
+        for (double coin : tempCoins.keySet()) {
+            while (remaining >= coin && tempCoins.get(coin) > 0) {
+                remaining = Math.round((remaining - coin) * 100.0) / 100.0;
+                tempCoins.put(coin, tempCoins.get(coin) - 1);
+            }
+        }
+        return remaining == 0;
+    }
+
+    /**
+    Faktycznie wydaje monety i zmniejsza ich stan w magazynie kasy.
+     */
     public void processChange(double amount) {
         double remaining = Math.round(amount * 100.0) / 100.0;
         if (remaining <= 0) return;

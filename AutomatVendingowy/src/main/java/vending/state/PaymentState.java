@@ -1,7 +1,9 @@
 package vending.state;
+
 import vending.model.*;
 
 public class PaymentState implements VendingState {
+    private static final long serialVersionUID = 1L;
     private final VendingMachine machine;
 
     public PaymentState(VendingMachine machine) {
@@ -32,16 +34,19 @@ public class PaymentState implements VendingState {
         if (machine.getBalance() >= p.getPrice()) {
             double change = machine.getBalance() - p.getPrice();
 
-            // Logika biznesowa: zmniejszenie stanu
+            // WALIDACJA RESZTY - Dodany warunek
+            if (!machine.getCashRegister().canGiveChange(change)) {
+                System.out.println("Automat nie może wydać reszty (" + change + " zł). ");
+                System.out.println("Wrzuć odliczoną kwotę lub wybierz inny produkt.");
+                return;
+            }
+
+            // Realizacja zakupu
             inv.decrement(id);
-
-            // Wydanie produktu przez wątek
             machine.getDispenser().releaseProduct(p.getName());
-
-            // Wydanie reszty
             machine.getCashRegister().processChange(change);
 
-            // Reset maszyny
+            // Powrót do stanu IDLE
             machine.setBalance(0.0);
             machine.setState(new IdleState(machine));
         } else {
