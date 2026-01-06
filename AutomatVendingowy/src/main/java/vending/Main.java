@@ -80,6 +80,6 @@ public class Main {
         inv.addProduct(ProductFactory.createSnack(7, "Down Weak", 8.0), 5);
         inv.addProduct(ProductFactory.createSnack(8, "Ocean Dew", 3.2), 5);
         inv.addProduct(ProductFactory.createSnack(9, "Adult Bueno", 5.0), 5);
-        System.out.println("[SYSTEM] Zainicjalizowano domyślne produkty (5 sztuk).");
+        System.out.println("Zainicjalizowano domyślne produkty (5 sztuk).");
     }
 }
