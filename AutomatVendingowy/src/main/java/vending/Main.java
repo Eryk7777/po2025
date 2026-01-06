@@ -21,9 +21,12 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("\n------------------------");
+            // Dodane opóźnienie, aby logi z Dispenser (wątku) wyświetliły się przed menu
+            try { Thread.sleep(100); } catch (InterruptedException e) {}
+
+            System.out.println("\n----------------------");
             System.out.println("AKTUALNE SALDO: " + machine.getBalance() + " zł");
-            System.out.println("------------------------");
+            System.out.println("----------------------");
             System.out.println("Opcje: [1-3] Wrzuć monetę (1zł/2zł/5zł) | [4] Kup | [5] Zwrot | [L] Lista | [R] Uzupełnij (Serwis) | [0] Wyjdź");
             System.out.print("Wybór: ");
 
@@ -37,6 +40,8 @@ public class Main {
                     System.out.print("Podaj ID produktu: ");
                     if (scanner.hasNextInt()) {
                         machine.selectProduct(scanner.nextInt());
+                        // Czekamy na zakończenie wydawania (2s w Dispenser + zapas), aby menu było ostatnie
+                        try { Thread.sleep(2200); } catch (InterruptedException e) {}
                     } else {
                         System.out.println("ID musi być liczbą!");
                         scanner.next();
@@ -45,16 +50,15 @@ public class Main {
                 case "5" -> machine.refund();
                 case "L" -> printProductList(machine);
                 case "R" -> {
-                    // Autoryzacja kodem admina
-                    System.out.print("Podaj kod ADMINA: ");
+                    // Dodana weryfikacja kodem admina
+                    System.out.print("PODAJ KOD ADMINA: ");
                     String code = scanner.next();
-
                     if (code.equals("1453")) {
                         machine.getInventory().restockAll();
-                        System.out.println("Autoryzacja przebiegła pomyślnie. Wszystkie produkty zostały uzupełnione do 5 sztuk.");
+                        System.out.println("Wszystkie produkty zostały uzupełnione do 5 sztuk.");
                         printProductList(machine);
                     } else {
-                        System.out.println("Błędny kod. Brak uprawnień do uzupełniania zapasów.");
+                        System.out.println("BŁĘDNY KOD ADMINA.");
                     }
                 }
                 case "0" -> {
