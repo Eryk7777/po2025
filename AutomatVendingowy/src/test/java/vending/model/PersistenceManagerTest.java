@@ -14,10 +14,10 @@ public class PersistenceManagerTest {
         InventoryManager inv = new InventoryManager();
         inv.addProduct(ProductFactory.createSnack(1, "ZapisanyProdukt", 5.0), 10);
 
-        // Zapisujemy
+        // Zapis
         PersistenceManager.save(inv);
 
-        // Wczytujemy
+        // Wczytanie
         InventoryManager loaded = PersistenceManager.load();
 
         assertNotNull(loaded, "Wczytany manager nie powinien być nullem");

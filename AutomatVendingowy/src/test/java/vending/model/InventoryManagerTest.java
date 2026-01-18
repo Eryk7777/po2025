@@ -27,17 +27,17 @@ public class InventoryManagerTest {
 
     @Test
     void testDecrementProduct() {
-        // Symulujemy zakup
+        // Symulacja zakupu
         inventory.decrement(1);
         assertEquals(4, inventory.getQuantity(1), "Ilość po zakupie powinna spaść do 4.");
     }
 
     @Test
     void testHasItemAvailability() {
-        // Sprawdzamy dostępność
+        // Sprawdzenie dostępności
         assertTrue(inventory.hasItem(1), "Produkt powinien być dostępny.");
 
-        // Zmniejszamy do zera
+        // Zmniejszenie do zera
         for (int i = 0; i < 5; i++) {
             inventory.decrement(1);
         }
@@ -47,12 +47,12 @@ public class InventoryManagerTest {
 
     @Test
     void testRestockAll() {
-        // Zmniejszamy stan
+        // Zmniejszenie stan
         inventory.decrement(1);
         inventory.decrement(1);
         assertEquals(3, inventory.getQuantity(1));
 
-        // Uruchamiamy funkcję serwisową
+        // Uruchomienie funkcji serwisowej
         inventory.restockAll();
 
         assertEquals(5, inventory.getQuantity(1), "Po restocku stan powinien wrócić do 5.");

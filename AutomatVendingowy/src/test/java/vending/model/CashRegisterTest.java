@@ -9,7 +9,7 @@ public class CashRegisterTest {
 
     @BeforeEach
     void setUp() {
-        // Gwarantujemy, że kasa jest pełna przed każdym testem
+        // Gwarancja pełnej kasy przed każdym testem
         cashRegister = new CashRegister();
     }
 
@@ -21,21 +21,19 @@ public class CashRegisterTest {
 
     @Test
     void testCanGiveComplexChange() {
-        // Testujemy 3.50 (2.0 + 1.0 + 0.5) - to są wartości,
-        // które w systemie binarnym mają dobrą reprezentację.
+        // Testujemy 3.50
         assertTrue(cashRegister.canGiveChange(3.5), "Powinien wydać 3.50 zł");
     }
 
     @Test
     void testCannotGiveImpossibleChange() {
-        // Masz monety 0.1, 0.2, 0.5 itd. Nie masz 0.05 (5 groszy).
-        // Algorytm musi zwrócić false.
+        // Algorytm musi zwrócić false, bo nie ma 5gr.
         assertFalse(cashRegister.canGiveChange(0.05), "Nie powinien wydać 0.05 zł");
     }
 
     @Test
     void testExactChangeLogic() {
-        // To przetestuje, czy pętla while i TreeMap działają poprawnie.
+        // Testowanie pętli while i TreeMap
         assertTrue(cashRegister.canGiveChange(2.2), "Powinien wydać 2.20 zł");
     }
 }

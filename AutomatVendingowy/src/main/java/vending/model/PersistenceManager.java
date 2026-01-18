@@ -5,19 +5,16 @@ import java.io.*;
 public class PersistenceManager {
     private static final String FILE_NAME = "vending_storage.dat";
 
-    /**
-
-    Zapisuje obiekt InventoryManager do pliku binarnego.*/
+    // Zapis obiektu InventoryManager do pliku binarnego.
     public static void save(InventoryManager inventory) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
             oos.writeObject(inventory);
             System.out.println("Stan magazynu został pomyślnie zapisany do pliku.");} catch (IOException e) {
             System.err.println("Nie udało się zapisać stanu: " + e.getMessage());}}
 
-    /**
+    //Wczytanie obiektu InventoryManager z pliku.
+    //@return Zwraca wczytany obiekt lub null, jeśli plik nie istnieje.
 
-    Wczytuje obiekt InventoryManager z pliku.
-    @return Zwraca wczytany obiekt lub null, jeśli plik nie istnieje.*/
     public static InventoryManager load() {
         File file = new File(FILE_NAME);
         if (!file.exists()) {

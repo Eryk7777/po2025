@@ -34,7 +34,7 @@ public class PaymentState implements VendingState {
         if (machine.getBalance() >= p.getPrice()) {
             double change = machine.getBalance() - p.getPrice();
 
-            // WALIDACJA RESZTY - Dodany warunek
+            // Walidacja reszty - Dodany warunek
             if (!machine.getCashRegister().canGiveChange(change)) {
                 System.out.println("Automat nie może wydać reszty (" + change + " zł). ");
                 System.out.println("Wrzuć odliczoną kwotę lub wybierz inny produkt.");

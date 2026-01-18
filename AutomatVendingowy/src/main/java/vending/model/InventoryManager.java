@@ -12,7 +12,7 @@ public class InventoryManager implements Serializable {
         quantities.put(p.getId(), qty);
     }
 
-    // NOWA METODA: Uzupełnianie wszystkich produktów do 5 sztuk
+    // Uzupełnianie wszystkich produktów do 5 sztuk
     public void restockAll() {
         for (Integer id : products.keySet()) {
             quantities.put(id, 5);

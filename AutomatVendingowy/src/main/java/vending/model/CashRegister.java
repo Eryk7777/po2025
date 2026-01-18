@@ -19,18 +19,16 @@ public class CashRegister implements Serializable {
         coins.put(0.1, 10);
     }
 
-    /**
-     * Dodaje monetę do kasy (powinno być wywoływane przy insertMoney w VendingMachine)
-     */
+     // Dodanie monety do kasy (insertMoney w VendingMachine)
+
     public void addCoin(double coin) {
-        // Zaokrąglamy nominał, aby uniknąć błędów klucza w mapie
+        // Zaokrąglenie nominału, w celu uniknięcia błędów klucza w mapie
         double roundedCoin = Math.round(coin * 100.0) / 100.0;
         coins.put(roundedCoin, coins.getOrDefault(roundedCoin, 0) + 1);
     }
 
-    /**
-     * Sprawdza, czy automat posiada odpowiednie monety.
-     */
+     //Sprawdzenie, czy automat posiada odpowiednie monety.
+
     public boolean canGiveChange(double amount) {
         double remaining = Math.round(amount * 100.0) / 100.0;
         if (remaining <= 0) return true;
@@ -45,13 +43,12 @@ public class CashRegister implements Serializable {
             }
         }
 
-        // Zmiana: sprawdzamy czy zostało mniej niż grosz, a nie idealne zero
+        // Sprawdzenie czy zostało mniej niż grosz, a nie idealne zero
         return remaining < 0.01;
     }
 
-    /**
-     * Faktycznie wydaje monety.
-     */
+     // Wydawanie monet.
+
     public void processChange(double amount) {
         double remaining = Math.round(amount * 100.0) / 100.0;
         if (remaining <= 0) return;
