@@ -10,6 +10,7 @@ public class CashRegister implements Serializable {
     private final Map<Double, Integer> coins = new TreeMap<>(Collections.reverseOrder());
 
     public CashRegister() {
+        // Stan początkowy kasy
         coins.put(5.0, 10);
         coins.put(2.0, 10);
         coins.put(1.0, 10);
@@ -19,28 +20,37 @@ public class CashRegister implements Serializable {
     }
 
     /**
+     * Dodaje monetę do kasy (powinno być wywoływane przy insertMoney w VendingMachine)
+     */
+    public void addCoin(double coin) {
+        // Zaokrąglamy nominał, aby uniknąć błędów klucza w mapie
+        double roundedCoin = Math.round(coin * 100.0) / 100.0;
+        coins.put(roundedCoin, coins.getOrDefault(roundedCoin, 0) + 1);
+    }
 
-    Sprawdza, czy automat posiada odpowiednie monety, aby wydac konkretna kwote reszty.
-    Nie zmienia stanu faktycznego monet w kasie.
+    /**
+     * Sprawdza, czy automat posiada odpowiednie monety.
      */
     public boolean canGiveChange(double amount) {
         double remaining = Math.round(amount * 100.0) / 100.0;
         if (remaining <= 0) return true;
 
-        // Symulacja na kopii mapy monet
-        Map<Double, Integer> tempCoins = new TreeMap<>(coins);
+        Map<Double, Integer> tempCoins = new TreeMap<>(Collections.reverseOrder());
+        tempCoins.putAll(coins);
 
         for (double coin : tempCoins.keySet()) {
-            while (remaining >= coin && tempCoins.get(coin) > 0) {
+            while (remaining >= (coin - 0.001) && tempCoins.get(coin) > 0) {
                 remaining = Math.round((remaining - coin) * 100.0) / 100.0;
                 tempCoins.put(coin, tempCoins.get(coin) - 1);
             }
         }
-        return remaining == 0;
+
+        // Zmiana: sprawdzamy czy zostało mniej niż grosz, a nie idealne zero
+        return remaining < 0.01;
     }
 
     /**
-    Faktycznie wydaje monety i zmniejsza ich stan w magazynie kasy.
+     * Faktycznie wydaje monety.
      */
     public void processChange(double amount) {
         double remaining = Math.round(amount * 100.0) / 100.0;
@@ -48,7 +58,7 @@ public class CashRegister implements Serializable {
 
         System.out.println("Wydawanie reszty: " + remaining + " zł");
         for (double coin : coins.keySet()) {
-            while (remaining >= coin && coins.get(coin) > 0) {
+            while (remaining >= (coin - 0.001) && coins.get(coin) > 0) {
                 remaining = Math.round((remaining - coin) * 100.0) / 100.0;
                 coins.put(coin, coins.get(coin) - 1);
                 System.out.println("  > Wydano monetę: " + coin + " zł");
