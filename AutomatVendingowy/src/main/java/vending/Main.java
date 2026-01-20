@@ -60,8 +60,14 @@ public class Main {
                     System.out.print("Podaj kod Admina: ");
                     String code = scanner.next();
                     if (code.equals("1453")) {
+                        // 1. Uzupełnienie produktów
                         machine.getInventory().restockAll();
-                        System.out.println("Wszystkie produkty zostały uzupełnione do 5 sztuk.");
+
+                        // 2. Uzupełnienie monet do 10 sztuk
+                        machine.getCashRegister().resetCoins();
+
+                        System.out.println("SERWIS: Produkty uzupełnione do 5 sztuk.");
+                        System.out.println("SERWIS: Stan monet zresetowany do 10 sztuk każdego nominału.");
                         printProductList(machine);
                     } else {
                         System.out.println("Błędny kod Admina!");
