@@ -19,6 +19,9 @@ public class Main {
             initDefaultInventory(machine);
         }
 
+        // Na starcie upewniamy się, że mamy po 10 monet (opcjonalne, bo konstruktor to robi, ale dla pewności)
+        machine.getCashRegister().resetCoins();
+
         System.out.println("\n--------------------------------------------------------------------");
         System.out.println("Witamy w Automacie Vendingowym! (Twórcy: Eryk Knap & Michał Sałapat) \nAby kupić produkt, wrzuć monety a następnie wybierz pozycję.");
         System.out.println("--------------------------------------------------------------------\n");
@@ -40,10 +43,24 @@ public class Main {
             String input = scanner.next().toUpperCase();
 
             switch (input) {
-                case "1" -> machine.insertMoney(1.0);
-                case "2" -> machine.insertMoney(2.0);
-                case "3" -> machine.insertMoney(5.0);
-                case "4" -> machine.insertMoney(0.5);
+                // Wrzucenie monety dodaje ją fizycznie do kasetki (addCoin)
+                // Dzięki temu stan rośnie powyżej 10, zatem R ma co resetowac - badz jak zabraknie monet to R przywroci do 10 sztuk.
+                case "1" -> {
+                    machine.getCashRegister().addCoin(1.0);
+                    machine.insertMoney(1.0);
+                }
+                case "2" -> {
+                    machine.getCashRegister().addCoin(2.0);
+                    machine.insertMoney(2.0);
+                }
+                case "3" -> {
+                    machine.getCashRegister().addCoin(5.0);
+                    machine.insertMoney(5.0);
+                }
+                case "4" -> {
+                    machine.getCashRegister().addCoin(0.5);
+                    machine.insertMoney(0.5);
+                }
                 case "5" -> {
                     System.out.print("Podaj ID produktu: ");
                     if (scanner.hasNextInt()) {
@@ -63,11 +80,11 @@ public class Main {
                         // 1. Uzupełnienie produktów
                         machine.getInventory().restockAll();
 
-                        // 2. Uzupełnienie monet do 10 sztuk
+                        // 2. Reset monet do stanu 10
                         machine.getCashRegister().resetCoins();
 
-                        System.out.println("SERWIS: Produkty uzupełnione do 5 sztuk.");
-                        System.out.println("SERWIS: Stan monet zresetowany do 10 sztuk każdego nominału.");
+                        System.out.println(">> SERWIS: Produkty uzupełnione do pełna.");
+                        System.out.println(">> SERWIS: Stan monet przywrócony do 10 sztuk każdego rodzaju.");
                         printProductList(machine);
                     } else {
                         System.out.println("Błędny kod Admina!");
