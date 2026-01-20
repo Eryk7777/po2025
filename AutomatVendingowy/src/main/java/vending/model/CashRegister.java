@@ -10,7 +10,12 @@ public class CashRegister implements Serializable {
     private final Map<Double, Integer> coins = new TreeMap<>(Collections.reverseOrder());
 
     public CashRegister() {
-        // Stan początkowy kasy
+        // Stan początkowy kasy - wywołujemy metodę resetującą, żeby nie powielać kodu
+        resetCoins();
+    }
+
+    //  Resetowanie monet do 10 sztuk
+    public void resetCoins() {
         coins.put(5.0, 10);
         coins.put(2.0, 10);
         coins.put(1.0, 10);
@@ -18,17 +23,16 @@ public class CashRegister implements Serializable {
         coins.put(0.2, 10);
         coins.put(0.1, 10);
     }
+    // --------------------------------------------------
 
-     // Dodanie monety do kasy (insertMoney w VendingMachine)
-
+    // Dodanie monety do kasy (insertMoney w VendingMachine)
     public void addCoin(double coin) {
         // Zaokrąglenie nominału, w celu uniknięcia błędów klucza w mapie
         double roundedCoin = Math.round(coin * 100.0) / 100.0;
         coins.put(roundedCoin, coins.getOrDefault(roundedCoin, 0) + 1);
     }
 
-     //Sprawdzenie, czy automat posiada odpowiednie monety.
-
+    // Sprawdzenie, czy automat posiada odpowiednie monety.
     public boolean canGiveChange(double amount) {
         double remaining = Math.round(amount * 100.0) / 100.0;
         if (remaining <= 0) return true;
@@ -47,8 +51,7 @@ public class CashRegister implements Serializable {
         return remaining < 0.01;
     }
 
-     // Wydawanie monet.
-
+    // Wydawanie monet.
     public void processChange(double amount) {
         double remaining = Math.round(amount * 100.0) / 100.0;
         if (remaining <= 0) return;
